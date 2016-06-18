@@ -3,7 +3,7 @@
 //  SwiftApp
 //
 //  Created by Prem Chaurasiya on 29/09/14.
-//  Copyright (c) 2014 Flipkart. All rights reserved.
+//  Copyright (c) 2014 PP. All rights reserved.
 //
 
 import UIKit
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     
     
     func createScoreCard() {
-        var headingLabel = UILabel(frame: CGRectMake(0, 20, CGRectGetWidth(self.view.frame), 35))
+        let headingLabel = UILabel(frame: CGRectMake(0, 20, CGRectGetWidth(self.view.frame), 35))
         headingLabel.textAlignment = NSTextAlignment.Center
         headingLabel.text = "-= Score =-"
         headingLabel.textColor =  UIColor.whiteColor()
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
             let nextObj : Int = Int(dataSet[index])
             
             var newLable : RoundedLable = RoundedLable(frame: CGRectMake(CGFloat(x), CGFloat(y), CGFloat(boxWidth) - 10, CGFloat(boxWidth) - 10))
-            newLable.text = NSString(format: "%d", nextObj)
+            newLable.text = NSString(format: "%d", nextObj) as String
             newLable.textColor = UIColor.lightGrayColor()
             newLable.roundedLabelState = RoundedLable.RoundedLabelState.StateDisabled
             newLable.textColor = UIColor.yellowColor()
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
         var allObjects = suggestions
         var originX : CGFloat = 0
         for index in 0..<allObjects.count {
-            var upcomingObject : RoundedLable = allObjects[index]
+            let upcomingObject : RoundedLable = allObjects[index]
             if(index < numberOfObjects) {
                 suggestions.removeAtIndex(0)
                 xMargin = CGRectGetMaxX(upcomingObject.frame)
@@ -107,7 +107,7 @@ class ViewController: UIViewController {
             else {
                 originX = upcomingObject.frame.origin.x - xMargin
                 var toFrame : CGRect = upcomingObject.frame
-                println(toFrame)
+                print(toFrame)
                 toFrame.origin.x = originX
                 UIView.animateWithDuration (0.5, delay:1.0, usingSpringWithDamping:0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
                     upcomingObject.frame = toFrame
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
             let nextObj : Int = Int(dataSet[self.suggestions.count + index])
             
             var newLable : RoundedLable = RoundedLable(frame: CGRectMake(CGFloat(x), CGFloat(y), CGFloat(boxWidth) - 10, CGFloat(boxWidth) - 10))
-            newLable.text = NSString(format: "%d", nextObj)
+            newLable.text = NSString(format: "%d", nextObj) as String
             newLable.textColor = UIColor.lightGrayColor()
             newLable.roundedLabelState = RoundedLable.RoundedLabelState.StateDisabled
             newLable.textColor = UIColor.yellowColor()
@@ -154,48 +154,60 @@ class ViewController: UIViewController {
     
     
     func creatDataSetForRows(numberOfBoxes : NSInteger) {
-        var totalBoxes = numberOfBoxes * numberOfBoxes - 1
+        let totalBoxes = numberOfBoxes * numberOfBoxes - 1
         for _ in 0...totalBoxes*2 {
             let newInt : UInt32 = (arc4random()%20) + 1
             self.dataSet.append(newInt)
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        var touch = touches.anyObject() as UITouch!
-        self.addChildWithTouch(touch)
+    
+        
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if let touch = touches.first {
+            self.addChildWithTouch(touch)
+        }
     }
     
-    override  func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-        var touch = touches.anyObject() as UITouch!
-        self.addChildWithTouch(touch)
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if let touch = touches.first {
+            self.addChildWithTouch(touch)
+        }
+
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.resetViews()
     }
     
+    
+    
+    
+    
     func addChildWithTouch(touch : UITouch) {
-        var touchedView : UIView = (touch.view)
-        if(touchedView == self.baseView) {
-            let location : CGPoint = (touch.locationInView(touch.view))
-            for box  in allBoxes {
-                if(box.frame.contains(location)) {
-                    let index = selectedBoxes.indexOfObject(box)
-                    if(index == NSNotFound) {
-                        selectedBoxes.addObject(box)
-                        self.configureBoxes()
+        if let view = touch.view {
+            let touchedView : UIView = (view)
+            if(touchedView == self.baseView) {
+                let location : CGPoint = (touch.locationInView(touch.view))
+                for box  in allBoxes {
+                    if(box.frame.contains(location)) {
+                        let index = selectedBoxes.indexOfObject(box)
+                        if(index == NSNotFound) {
+                            selectedBoxes.addObject(box)
+                            self.configureBoxes()
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
     }
     
     func configureBoxes(){
-        var state = self.currentStateForGame()
-        for (index, value) in enumerate(selectedBoxes) {
-            let label : RoundedLable = selectedBoxes.objectAtIndex(index) as RoundedLable
+        let state = self.currentStateForGame()
+        for (index, _) in selectedBoxes.enumerate() {
+            let label : RoundedLable = selectedBoxes.objectAtIndex(index) as! RoundedLable
             label.setRoundedLabelState(state)
         }
     }
@@ -203,8 +215,8 @@ class ViewController: UIViewController {
     func currentStateForGame() -> RoundedLable.RoundedLabelState {
         var total = 0
         var roundedLabelState  = RoundedLable.RoundedLabelState.StateInCorrect;
-        for (index, value) in enumerate(selectedBoxes) {
-            let label : RoundedLable = selectedBoxes.objectAtIndex(index) as RoundedLable
+        for (index, _) in selectedBoxes.enumerate() {
+            let label : RoundedLable = selectedBoxes.objectAtIndex(index) as! RoundedLable
             let text : NSString = label.text!
             let number = text.integerValue
             if(index == selectedBoxes.count - 1 && number == total) {
@@ -218,14 +230,14 @@ class ViewController: UIViewController {
     }
     
     func resetViews() {
-        let previousScore = self.scoreCard?.text?.toInt()
+        let previousScore = Int(self.scoreCard?.text ?? "0")
         var scoreEarned : Int = previousScore!
         let numberOfBoxes = selectedBoxes.count
-        for (index, value) in enumerate(selectedBoxes) {
-            let label : RoundedLable = selectedBoxes.objectAtIndex(index) as RoundedLable
+        for (index, _) in selectedBoxes.enumerate() {
+            let label : RoundedLable = selectedBoxes.objectAtIndex(index) as! RoundedLable
             var state = self.currentStateForGame()
             if(state == RoundedLable.RoundedLabelState.StateCorrect) {
-                let value = label.text?.toInt()
+                let value = Int(label.text ?? "0")
                 scoreEarned += value! * Int(pow(Double(10), Double(numberOfBoxes)))
                 var animationDuration : NSTimeInterval = 0.3
                 
@@ -234,7 +246,7 @@ class ViewController: UIViewController {
                     }, completion: { finished in
                         UIView.animateWithDuration (0.5, delay:0.5, usingSpringWithDamping:0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
                             label.transform = CGAffineTransformIdentity
-                            label.text = NSString(format: "%d", self.objectForNextIndex())
+                            label.text = NSString(format: "%d", self.objectForNextIndex()) as String
                             label.setRoundedLabelState(RoundedLable.RoundedLabelState.StateUnTouched)
                             
                             }, completion: { finished in
@@ -255,9 +267,9 @@ class ViewController: UIViewController {
     
     
     func setUserScore(score : Int) {
-        var scoreCard : UILabel = self.scoreCard!
+        let scoreCard : UILabel = self.scoreCard!
         UIView.animateWithDuration (0.5, delay:0.5, usingSpringWithDamping:0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
-            scoreCard.text = NSString(format: "%d", score)
+            scoreCard.text = NSString(format: "%d", score) as String
             }, completion: { finished in
                 
         })
@@ -276,18 +288,18 @@ class ViewController: UIViewController {
     
     func createView (numberOfBoxes : NSInteger) {
         let viewDimension : Int = Int(CGRectGetWidth(self.view.frame) - 22.0)
-        var width : NSInteger = viewDimension / numberOfBoxes
+        let width : NSInteger = viewDimension / numberOfBoxes
         let height : NSInteger = width
         
         self.baseView = TouchableView(frame: CGRectMake(10, CGRectGetHeight(self.view.frame) - CGFloat(viewDimension) - 10 , CGFloat(viewDimension), CGFloat(viewDimension)))
         self.view.addSubview(baseView!)
         
         var x : Int = 5, y : Int = 5
-        var totalBoxes = numberOfBoxes * numberOfBoxes - 1
+        let totalBoxes = numberOfBoxes * numberOfBoxes - 1
         for i in 0...totalBoxes
         {
-            var newLable : RoundedLable = RoundedLable(frame: CGRectMake(CGFloat(x), CGFloat(y), CGFloat(width) - 10, CGFloat(height) - 10))
-            newLable.text = NSString(format: "%d", self.dataSet[i])
+            let newLable : RoundedLable = RoundedLable(frame: CGRectMake(CGFloat(x), CGFloat(y), CGFloat(width) - 10, CGFloat(height) - 10))
+            newLable.text = NSString(format: "%d", self.dataSet[i]) as String
             newLable.textColor = UIColor.whiteColor()
             newLable.textAlignment = NSTextAlignment.Center
             x += width ;
@@ -303,9 +315,9 @@ class ViewController: UIViewController {
             fromRect.origin.x = (((arc4random()%2) == 1) ? -CGFloat((arc4random()%100)) - 400 : CGFloat((arc4random()%1000)) + 400)
             newLable.frame = fromRect
             
-            var animationDuration : NSTimeInterval = 0.3
-            var delayInAnimation : NSTimeInterval = Double(i)*animationDuration
-            var factor : Double = Double((arc4random()%5)) + 3
+            let animationDuration : NSTimeInterval = 0.3
+            let delayInAnimation : NSTimeInterval = Double(i)*animationDuration
+            let factor : Double = Double((arc4random()%5)) + 3
             UIView.animateWithDuration(animationDuration, delay:delayInAnimation/factor, usingSpringWithDamping: 0.9, initialSpringVelocity:5, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
                 newLable.frame = toRect
                 }, completion: nil)

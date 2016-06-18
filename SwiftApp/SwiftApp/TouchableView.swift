@@ -3,7 +3,7 @@
 //  SwiftApp
 //
 //  Created by Prem Chaurasiya on 29/10/14.
-//  Copyright (c) 2014 Flipkart. All rights reserved.
+//  Copyright (c) 2014 PP. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +16,7 @@ class TouchableView: UIView {
         self.backgroundColor = UIColor.clearColor()
     }
     
-     required init(coder aDecoder: NSCoder) {
+     required init?(coder aDecoder: NSCoder) {
          super.init(coder: aDecoder)
      }
     

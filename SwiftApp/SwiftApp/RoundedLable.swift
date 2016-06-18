@@ -3,7 +3,7 @@
 //  SwiftApp
 //
 //  Created by Prem Chaurasiya on 29/10/14.
-//  Copyright (c) 2014 Flipkart. All rights reserved.
+//  Copyright (c) 2014 PP. All rights reserved.
 //
 
 import Foundation
@@ -49,7 +49,7 @@ class RoundedLable : UILabel {
         }
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
@@ -58,12 +58,12 @@ class RoundedLable : UILabel {
     {
         super.drawRect(rect)
 
-        var bounds:CGRect = self.bounds
+        let bounds:CGRect = self.bounds
         var center = CGPoint()
         center.x = bounds.origin.x + bounds.size.width / 2.0
         center.y = bounds.origin.y + bounds.size.height / 2.0
-        var radius = (min(bounds.size.width, bounds.size.height) / 2.0) - 4.0
-        var path:UIBezierPath = UIBezierPath()
+        let radius = (min(bounds.size.width, bounds.size.height) / 2.0) - 4.0
+        let path:UIBezierPath = UIBezierPath()
         path.addArcWithCenter(center, radius: CGFloat(radius), startAngle: CGFloat(0.0), endAngle: CGFloat(Float(M_PI) * 2.0), clockwise: true)
 
         switch self.roundedLabelState {

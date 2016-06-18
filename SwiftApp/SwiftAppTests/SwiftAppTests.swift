@@ -3,7 +3,7 @@
 //  SwiftAppTests
 //
 //  Created by Prem Chaurasiya on 29/09/14.
-//  Copyright (c) 2014 Flipkart. All rights reserved.
+//  Copyright (c) 2014 PP. All rights reserved.
 //
 
 import UIKit
