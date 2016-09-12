@@ -12,6 +12,7 @@ import CoreGraphics
 
 class RoundedLable : UILabel {
 
+    var color = UIColor.clearColor()
     enum RoundedLabelState {
         case StateCorrect
         case StateInCorrect
@@ -56,7 +57,6 @@ class RoundedLable : UILabel {
     
     override func drawRect(rect: CGRect)
     {
-        super.drawRect(rect)
 
         let bounds:CGRect = self.bounds
         var center = CGPoint()
@@ -64,6 +64,7 @@ class RoundedLable : UILabel {
         center.y = bounds.origin.y + bounds.size.height / 2.0
         let radius = (min(bounds.size.width, bounds.size.height) / 2.0) - 4.0
         let path:UIBezierPath = UIBezierPath()
+        color.setFill()
         path.addArcWithCenter(center, radius: CGFloat(radius), startAngle: CGFloat(0.0), endAngle: CGFloat(Float(M_PI) * 2.0), clockwise: true)
 
         switch self.roundedLabelState {
@@ -83,11 +84,19 @@ class RoundedLable : UILabel {
             UIColor.yellowColor().setStroke()
             path.lineWidth = 1
             break
-        default :
-            break
         }
 
+        path.fill()
         path.stroke()
+        
+        super.drawRect(rect)
+
+    }
+    
+    func ineractiveFrame() -> CGRect {
+        let egdeWidth = CGRectGetWidth(self.frame)/5
+        return self.frame.insetBy(dx: egdeWidth, dy: egdeWidth)
+        
     }
 
 }

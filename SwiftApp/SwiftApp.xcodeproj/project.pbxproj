@@ -17,6 +17,7 @@
 		80A2FAED19D9C9D8007376B6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80A2FAEB19D9C9D8007376B6 /* LaunchScreen.xib */; };
 		80A2FAF919D9C9D9007376B6 /* SwiftAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A2FAF819D9C9D9007376B6 /* SwiftAppTests.swift */; };
 		80A2FB0319D9CA86007376B6 /* TipCalculatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A2FB0219D9CA86007376B6 /* TipCalculatorModel.swift */; };
+		E7028AAA1D171D270092AB79 /* IntelligentGuy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7028AA91D171D270092AB79 /* IntelligentGuy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		80A2FAF819D9C9D9007376B6 /* SwiftAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAppTests.swift; sourceTree = "<group>"; };
 		80A2FB0219D9CA86007376B6 /* TipCalculatorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCalculatorModel.swift; sourceTree = "<group>"; };
 		80BD111719DC100C00E05FD0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		E7028AA91D171D270092AB79 /* IntelligentGuy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntelligentGuy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				80BD111719DC100C00E05FD0 /* MyPlayground.playground */,
 				805E361C19E5E8FE0037A074 /* TouchableView.swift */,
 				805E368019E61F020037A074 /* RoundedLable.swift */,
+				E7028AA91D171D270092AB79 /* IntelligentGuy.swift */,
 			);
 			path = SwiftApp;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				TargetAttributes = {
 					80A2FAD919D9C9D8007376B6 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = ECY8ZKVM49;
 					};
 					80A2FAF119D9C9D9007376B6 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -231,6 +235,7 @@
 				805E368119E61F020037A074 /* RoundedLable.swift in Sources */,
 				805E361D19E5E8FE0037A074 /* TouchableView.swift in Sources */,
 				80A2FAE519D9C9D8007376B6 /* ViewController.swift in Sources */,
+				E7028AAA1D171D270092AB79 /* IntelligentGuy.swift in Sources */,
 				80A2FAE019D9C9D8007376B6 /* AppDelegate.swift in Sources */,
 				80A2FAE319D9C9D8007376B6 /* SwiftApp.xcdatamodeld in Sources */,
 				80A2FB0319D9CA86007376B6 /* TipCalculatorModel.swift in Sources */,
@@ -356,6 +361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SwiftApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -366,6 +372,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SwiftApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
