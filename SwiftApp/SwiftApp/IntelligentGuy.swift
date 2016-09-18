@@ -14,10 +14,10 @@ class  IntelligentGuy: NSObject {
     
     
     
-    class func calculateAllPossibleOptions(dataSet : [Int])  {
+    class func calculateAllPossibleOptions(_ dataSet : [Int])  {
         connectionPaths.removeAll()
         let rows = Int(sqrt(Double(dataSet.count)))
-        var input : [[Object]] = Array(count: rows, repeatedValue: Array(count: rows, repeatedValue: Object(value: 1)))
+        var input : [[Object]] = Array(repeating: Array(repeating: Object(value: 1), count: rows), count: rows)
         var i = 0
         var j = 0
         
@@ -90,7 +90,7 @@ class  IntelligentGuy: NSObject {
     }
 
     
-    class func findAllPaths(sourceNode : (i : Int, j: Int), targetNode : (i : Int, j: Int), connectionPath : Stack, input : [[Object]] )  {
+    class func findAllPaths(_ sourceNode : (i : Int, j: Int), targetNode : (i : Int, j: Int), connectionPath : Stack, input : [[Object]] )  {
         let allAdjectentNodes = adjecentNodes(sourceNode, iMax: input.count, jMax: input.count)
         
         for nextNode in allAdjectentNodes {
@@ -117,7 +117,7 @@ class  IntelligentGuy: NSObject {
     }
 
     
-    class func adjecentNodes(node : (i : Int, j : Int), iMax : Int, jMax : Int) -> [(Int,Int)] {
+    class func adjecentNodes(_ node : (i : Int, j : Int), iMax : Int, jMax : Int) -> [(Int,Int)] {
         var result = [(Int,Int)]()
         
         
@@ -187,7 +187,7 @@ struct Object {
 class Stack : NSObject {
     var array = [(Int,Int)]()
     
-    func push(element : (Int,Int)) {
+    func push(_ element : (Int,Int)) {
         array.append(element)
     }
     
@@ -201,8 +201,8 @@ class Stack : NSObject {
         return array
     }
     
-    func contains(Obj :(Int,Int)) -> Bool {
-        return array.contains({ (i, j) -> Bool in
+    func contains(_ Obj :(Int,Int)) -> Bool {
+        return array.contains(where: { (i, j) -> Bool in
             return (i == Obj.0 && j == Obj.1)
         })
     }
@@ -214,7 +214,7 @@ class Stack : NSObject {
     }
     
     
-    func currentSum(input : [[Object]]) -> Int {
+    func currentSum(_ input : [[Object]]) -> Int {
         var sum : Int = 0
         for obj in array {
             sum += input[obj.0][obj.1].value

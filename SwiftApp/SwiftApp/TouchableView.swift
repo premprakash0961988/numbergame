@@ -13,7 +13,7 @@ class TouchableView: UIView {
 
     override init(frame  rect: CGRect)  {
         super.init(frame: rect)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
     
      required init?(coder aDecoder: NSCoder) {
@@ -23,9 +23,9 @@ class TouchableView: UIView {
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect)
+    override func draw(_ rect: CGRect)
     {
-        super.drawRect(rect)
+        super.draw(rect)
         // Drawing code
     }
     

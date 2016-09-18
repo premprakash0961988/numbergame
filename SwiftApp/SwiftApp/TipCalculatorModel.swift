@@ -30,7 +30,7 @@ class TipCalculator {
     }
     
     // 4
-    func calcTipWithTipPct(tipPct:Double) -> Double {
+    func calcTipWithTipPct(_ tipPct:Double) -> Double {
         return subtotal * tipPct
     }
     

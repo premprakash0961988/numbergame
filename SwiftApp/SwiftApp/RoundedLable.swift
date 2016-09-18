@@ -12,39 +12,39 @@ import CoreGraphics
 
 class RoundedLable : UILabel {
 
-    var color = UIColor.clearColor()
+    var color = UIColor.clear
     enum RoundedLabelState {
-        case StateCorrect
-        case StateInCorrect
-        case StateUnTouched
-        case StateDisabled
+        case stateCorrect
+        case stateInCorrect
+        case stateUnTouched
+        case stateDisabled
     }
 
-    var roundedLabelState : RoundedLabelState = RoundedLabelState.StateUnTouched
+    var roundedLabelState : RoundedLabelState = RoundedLabelState.stateUnTouched
     
     override init(frame  rect: CGRect) {
         super.init(frame: rect)
         
         self.font = UIFont(name: "Baskerville-SemiBold", size: 20)
-        self.roundedLabelState = RoundedLabelState.StateUnTouched
+        self.roundedLabelState = RoundedLabelState.stateUnTouched
     }
     
-    func setRoundedLabelState(state : RoundedLabelState) {
+    func setRoundedLabelState(_ state : RoundedLabelState) {
         self.roundedLabelState = state
         self.setNeedsDisplay()
 
         switch (state) {
-        case .StateCorrect :
-            self.textColor = UIColor.greenColor()
+        case .stateCorrect :
+            self.textColor = UIColor.green
             break
-        case .StateInCorrect :
-            self.textColor = UIColor.redColor()
+        case .stateInCorrect :
+            self.textColor = UIColor.red
             break
-        case .StateUnTouched :
-            self.textColor = UIColor.whiteColor()
+        case .stateUnTouched :
+            self.textColor = UIColor.white
             break
-        case .StateDisabled :
-            self.textColor = UIColor.lightGrayColor()
+        case .stateDisabled :
+            self.textColor = UIColor.lightGray
             break
             
         }
@@ -55,7 +55,7 @@ class RoundedLable : UILabel {
     }
 
     
-    override func drawRect(rect: CGRect)
+    override func draw(_ rect: CGRect)
     {
 
         let bounds:CGRect = self.bounds
@@ -65,23 +65,23 @@ class RoundedLable : UILabel {
         let radius = (min(bounds.size.width, bounds.size.height) / 2.0) - 4.0
         let path:UIBezierPath = UIBezierPath()
         color.setFill()
-        path.addArcWithCenter(center, radius: CGFloat(radius), startAngle: CGFloat(0.0), endAngle: CGFloat(Float(M_PI) * 2.0), clockwise: true)
+        path.addArc(withCenter: center, radius: CGFloat(radius), startAngle: CGFloat(0.0), endAngle: CGFloat(Float(M_PI) * 2.0), clockwise: true)
 
         switch self.roundedLabelState {
-        case .StateCorrect :
-            UIColor.greenColor().setStroke()
+        case .stateCorrect :
+            UIColor.green.setStroke()
             path.lineWidth = 2
             break
-        case .StateInCorrect :
-            UIColor.redColor().setStroke()
+        case .stateInCorrect :
+            UIColor.red.setStroke()
             path.lineWidth = 2
             break
-        case .StateUnTouched :
-            UIColor.whiteColor().setStroke()
+        case .stateUnTouched :
+            UIColor.white.setStroke()
             path.lineWidth = 1
             break
-        case .StateDisabled :
-            UIColor.yellowColor().setStroke()
+        case .stateDisabled :
+            UIColor.yellow.setStroke()
             path.lineWidth = 1
             break
         }
@@ -89,12 +89,12 @@ class RoundedLable : UILabel {
         path.fill()
         path.stroke()
         
-        super.drawRect(rect)
+        super.draw(rect)
 
     }
     
     func ineractiveFrame() -> CGRect {
-        let egdeWidth = CGRectGetWidth(self.frame)/5
+        let egdeWidth = self.frame.width/5
         return self.frame.insetBy(dx: egdeWidth, dy: egdeWidth)
         
     }
