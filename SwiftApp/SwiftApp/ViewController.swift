@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UserTouchDelegate {
     
     var allBoxes : [RoundedLable] = []
     var selectedBoxes = [RoundedLable]()
@@ -18,7 +18,10 @@ class ViewController: UIViewController {
     var upComingObjectView : UIScrollView?
     var scoreCard : UILabel?
     let shapeLayer = CAShapeLayer()
-    let numberOfRows = 4
+    let numberOfRows = 10
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -117,7 +120,6 @@ class ViewController: UIViewController {
             }
         }
         self.addUpComingObject(numberOfObjects, xOrigin: originX)
-        
     }
     
     func addUpComingObject (_ numberOfObjects : Int , xOrigin : CGFloat ) {
@@ -149,9 +151,6 @@ class ViewController: UIViewController {
         }
         
         
-
-        
-
         upComingObjectView?.contentSize = CGSize(width: x , height: boxHeight)
 
 
@@ -167,8 +166,32 @@ class ViewController: UIViewController {
         }
     }
     
+    func touchBegan(location : CGPoint) {
+        handleUserTouch(location: location)
+    }
     
-        
+    func touchMoved(location : CGPoint) {
+        handleUserTouch(location: location)
+    }
+    
+    func touchEnded() {
+        self.resetViews()
+    }
+
+    
+    func handleUserTouch(location : CGPoint) {
+        for box  in allBoxes {
+            if(box.ineractiveFrame().contains(location)) {
+                let index = selectedBoxes.index(of: box)
+                if(index == nil) {
+                    selectedBoxes.append(box)
+                    self.configureBoxes()
+                }
+                break;
+            }
+        }
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -255,8 +278,10 @@ class ViewController: UIViewController {
                     self.drawUserInteractions()
                 }
 
+                
+
                 let delayTime1 = DispatchTime.now() + Double(Int64(2.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-                DispatchQueue.main.asyncAfter(deadline: delayTime1) {
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: delayTime1) {
                     IntelligentGuy.calculateAllPossibleOptions(self.currentData())
                     
                 }
@@ -287,6 +312,7 @@ class ViewController: UIViewController {
             self.removeObjectsForIndex(numberOfBoxes)
         }
         selectedBoxes.removeAll()
+        self.drawUserInteractions()
         
     }
     
@@ -312,7 +338,6 @@ class ViewController: UIViewController {
         return firstObject
     }
     
-
     
     func createView (_ numberOfBoxes : NSInteger) {
         let viewDimension : Int = Int(self.view.frame.width - 22.0)
@@ -320,7 +345,10 @@ class ViewController: UIViewController {
         let height : NSInteger = width
         
         self.baseView = TouchableView(frame: CGRect(x: 10, y: self.view.frame.height - CGFloat(viewDimension) - 10 , width: CGFloat(viewDimension), height: CGFloat(viewDimension)))
+        baseView?.delegate = self
+        baseView?.subView.touchDelegate = self
         self.baseView?.backgroundColor = self.view.backgroundColor ?? UIColor.clear
+        
         self.view.addSubview(baseView!)
         
         var x : Int = 5, y : Int = 5
@@ -352,7 +380,7 @@ class ViewController: UIViewController {
             UIView.animate(withDuration: animationDuration, delay:delayInAnimation/factor, usingSpringWithDamping: 0.9, initialSpringVelocity:5, options: UIViewAnimationOptions.allowUserInteraction, animations: { () -> Void in
                 newLable.frame = toRect
                 }, completion: nil)
-            baseView!.addSubview(newLable)
+            baseView?.subView.addSubview(newLable)
             allBoxes.append(newLable)
         }
         dataSet.removeSubrange(0...totalBoxes)
@@ -368,7 +396,9 @@ class ViewController: UIViewController {
         }
         
         for box in selectedBoxes {
-            path.addLine(to: box.center)
+            let x = baseView!.zoomScale * box.center.x
+            let y = baseView!.zoomScale * box.center.y
+            path.addLine(to: CGPoint(x:x,y:y))
             
         }
 
@@ -377,9 +407,14 @@ class ViewController: UIViewController {
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineWidth = 2.0;
         self.baseView?.layer.insertSublayer(shapeLayer, at: 0)
-        
-        
-        
+    }
+    
+    func showUserStatus() {
+//        var userInput = ""
+ //       for box in selectedBoxes {
+//            userInput
+            
+//        }
     }
     
     func currentData() -> [Int] {
@@ -396,6 +431,13 @@ class ViewController: UIViewController {
 
     @IBAction func touchUpInside() {
         print("touchUpInside")
+    }
+}
+
+extension ViewController : UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return (scrollView as? TouchableView)?.subView
     }
 }
 

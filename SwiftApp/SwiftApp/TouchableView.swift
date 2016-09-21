@@ -8,26 +8,92 @@
 
 import UIKit
 
-class TouchableView: UIView {
+protocol UserTouchDelegate : NSObjectProtocol {
+    func touchBegan(location : CGPoint)
+    func touchMoved(location : CGPoint)
+    func touchEnded()
+    
+}
+
+class TouchableView: UIScrollView {
+    var zoomGestureRecognizer : UITapGestureRecognizer?
+    var subView : TouchView!
 
 
     override init(frame  rect: CGRect)  {
         super.init(frame: rect)
+        var bounds = rect
+        bounds.origin.x = 0
+        bounds.origin.y = 0
+        subView = TouchView(frame: bounds)
+        subView.isExclusiveTouch = true
+        
+        self.addSubview(subView)
+        
         self.backgroundColor = UIColor.clear
+        self.maximumZoomScale = 2
+        self.isScrollEnabled = false
     }
+    
+    
     
      required init?(coder aDecoder: NSCoder) {
          super.init(coder: aDecoder)
      }
     
     
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect)
-    {
-        super.draw(rect)
-        // Drawing code
+    func addGestireRecongnizer() {
+        zoomGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TouchableView.doubleTapDone))
+        zoomGestureRecognizer?.numberOfTapsRequired = 2
+        self.addGestureRecognizer(zoomGestureRecognizer!)
     }
     
+    func doubleTapDone() {
+        if (self.zoomScale > self.minimumZoomScale) {
+            self.setZoomScale(self.minimumZoomScale, animated: true)
+        }
+        else {
+            self.setZoomScale(self.maximumZoomScale, animated: true)
+        }
+        
+    }
+    
+    
+
+    
+    
+   
 
 }
+
+
+class TouchView : UIView {
+    weak var touchDelegate : UserTouchDelegate?
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if let touch = touches.first {
+            touchDelegate?.touchBegan(location:(touch.location(in: self)))
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            touchDelegate?.touchMoved(location:(touch.location(in: self)))
+        }
+        
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchDelegate?.touchEnded()
+    }
+    
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchDelegate?.touchEnded()
+    }
+
+}
+
+
+
