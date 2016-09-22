@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		583265EE1D931608008EB183 /* ViewController+Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583265ED1D931608008EB183 /* ViewController+Scoring.swift */; };
+		583265F01D93164F008EB183 /* ViewController+Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583265EF1D93164F008EB183 /* ViewController+Interaction.swift */; };
+		583265F21D932164008EB183 /* ViewController+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583265F11D932164008EB183 /* ViewController+Operations.swift */; };
+		583265F51D93260B008EB183 /* OperationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583265F41D93260B008EB183 /* OperationCell.swift */; };
+		583265F71D93261F008EB183 /* OperationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 583265F61D93261F008EB183 /* OperationCell.xib */; };
 		805E361D19E5E8FE0037A074 /* TouchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805E361C19E5E8FE0037A074 /* TouchableView.swift */; };
 		805E368119E61F020037A074 /* RoundedLable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805E368019E61F020037A074 /* RoundedLable.swift */; };
 		80A2FAE019D9C9D8007376B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A2FADF19D9C9D8007376B6 /* AppDelegate.swift */; };
@@ -31,6 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		583265ED1D931608008EB183 /* ViewController+Scoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Scoring.swift"; sourceTree = "<group>"; };
+		583265EF1D93164F008EB183 /* ViewController+Interaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Interaction.swift"; sourceTree = "<group>"; };
+		583265F11D932164008EB183 /* ViewController+Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Operations.swift"; sourceTree = "<group>"; };
+		583265F41D93260B008EB183 /* OperationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationCell.swift; sourceTree = "<group>"; };
+		583265F61D93261F008EB183 /* OperationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperationCell.xib; sourceTree = "<group>"; };
 		805E361C19E5E8FE0037A074 /* TouchableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableView.swift; sourceTree = "<group>"; };
 		805E368019E61F020037A074 /* RoundedLable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedLable.swift; sourceTree = "<group>"; };
 		80A2FADA19D9C9D8007376B6 /* SwiftApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		583265F31D9325F3008EB183 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				583265F41D93260B008EB183 /* OperationCell.swift */,
+				583265F61D93261F008EB183 /* OperationCell.xib */,
+			);
+			path = CustomCell;
+			sourceTree = "<group>";
+		};
 		80A2FAD119D9C9D8007376B6 = {
 			isa = PBXGroup;
 			children = (
@@ -88,8 +107,12 @@
 		80A2FADC19D9C9D8007376B6 /* SwiftApp */ = {
 			isa = PBXGroup;
 			children = (
+				583265F31D9325F3008EB183 /* CustomCell */,
 				80A2FADF19D9C9D8007376B6 /* AppDelegate.swift */,
 				80A2FAE419D9C9D8007376B6 /* ViewController.swift */,
+				583265ED1D931608008EB183 /* ViewController+Scoring.swift */,
+				583265EF1D93164F008EB183 /* ViewController+Interaction.swift */,
+				583265F11D932164008EB183 /* ViewController+Operations.swift */,
 				80A2FAE619D9C9D8007376B6 /* Main.storyboard */,
 				80A2FAE919D9C9D8007376B6 /* Images.xcassets */,
 				80A2FAEB19D9C9D8007376B6 /* LaunchScreen.xib */,
@@ -217,6 +240,7 @@
 				80A2FAE819D9C9D8007376B6 /* Main.storyboard in Resources */,
 				80A2FAED19D9C9D8007376B6 /* LaunchScreen.xib in Resources */,
 				80A2FAEA19D9C9D8007376B6 /* Images.xcassets in Resources */,
+				583265F71D93261F008EB183 /* OperationCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,11 +259,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				805E368119E61F020037A074 /* RoundedLable.swift in Sources */,
+				583265F51D93260B008EB183 /* OperationCell.swift in Sources */,
 				805E361D19E5E8FE0037A074 /* TouchableView.swift in Sources */,
 				80A2FAE519D9C9D8007376B6 /* ViewController.swift in Sources */,
 				E7028AAA1D171D270092AB79 /* IntelligentGuy.swift in Sources */,
 				80A2FAE019D9C9D8007376B6 /* AppDelegate.swift in Sources */,
+				583265F01D93164F008EB183 /* ViewController+Interaction.swift in Sources */,
+				583265F21D932164008EB183 /* ViewController+Operations.swift in Sources */,
 				80A2FAE319D9C9D8007376B6 /* SwiftApp.xcdatamodeld in Sources */,
+				583265EE1D931608008EB183 /* ViewController+Scoring.swift in Sources */,
 				80A2FB0319D9CA86007376B6 /* TipCalculatorModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

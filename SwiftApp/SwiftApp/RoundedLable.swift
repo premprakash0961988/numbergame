@@ -12,6 +12,7 @@ import CoreGraphics
 
 class RoundedLable : UILabel {
 
+    var operation : Operation!
     var color = UIColor.clear
     enum RoundedLabelState {
         case stateCorrect

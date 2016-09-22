@@ -16,7 +16,6 @@ protocol UserTouchDelegate : NSObjectProtocol {
 }
 
 class TouchableView: UIScrollView {
-    var zoomGestureRecognizer : UITapGestureRecognizer?
     var subView : TouchView!
 
 
@@ -42,21 +41,6 @@ class TouchableView: UIScrollView {
      }
     
     
-    func addGestireRecongnizer() {
-        zoomGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TouchableView.doubleTapDone))
-        zoomGestureRecognizer?.numberOfTapsRequired = 2
-        self.addGestureRecognizer(zoomGestureRecognizer!)
-    }
-    
-    func doubleTapDone() {
-        if (self.zoomScale > self.minimumZoomScale) {
-            self.setZoomScale(self.minimumZoomScale, animated: true)
-        }
-        else {
-            self.setZoomScale(self.maximumZoomScale, animated: true)
-        }
-        
-    }
     
     
 
