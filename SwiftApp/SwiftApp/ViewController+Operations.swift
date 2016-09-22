@@ -54,6 +54,8 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
         operations.append(Operation(title: "-", operationType: .minus))
         operations.append(Operation(title: "*", operationType: .multiply))
         operations.append(Operation(title: "/", operationType: .divide))
+
+        
         return operations
     }
 
@@ -61,7 +63,9 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
     func addOperationsView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let frame = CGRect( x :0, y: currentEquationBoard!.frame.maxY + 10 , width : self.view.frame.size.width, height : 88)
+        let height : CGFloat = 60
+        layout.itemSize = CGSize(width :self.view.frame.size.width/4, height : height )
+        let frame = CGRect( x :0, y: currentEquationBoard!.frame.maxY + 10 , width : self.view.frame.size.width, height : height)
         operationsCollectionView = UICollectionView(frame: frame , collectionViewLayout: layout)
         operationsCollectionView?.dataSource = self
         operationsCollectionView?.delegate = self

@@ -24,14 +24,21 @@ class TouchableView: UIScrollView {
         var bounds = rect
         bounds.origin.x = 0
         bounds.origin.y = 0
+        
+        
         subView = TouchView(frame: bounds)
         subView.isExclusiveTouch = true
+        self.isExclusiveTouch = true
+        
         
         self.addSubview(subView)
-        
         self.backgroundColor = UIColor.clear
         self.maximumZoomScale = 2
         self.isScrollEnabled = false
+        
+        self.isMultipleTouchEnabled = true
+        subView.isMultipleTouchEnabled = true
+
     }
     
     
@@ -39,13 +46,6 @@ class TouchableView: UIScrollView {
      required init?(coder aDecoder: NSCoder) {
          super.init(coder: aDecoder)
      }
-    
-    
-    
-    
-
-    
-    
    
 
 }

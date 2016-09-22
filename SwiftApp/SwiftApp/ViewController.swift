@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     let shapeLayer = CAShapeLayer()
     let numberOfRows = 4
     var selectedOperation : Operation!
+    var boxWindow : UIWindow!
     
 
     
@@ -36,8 +37,6 @@ class ViewController: UIViewController {
         selectedOperation = availableOperations().first
         
         self.view.isMultipleTouchEnabled = true
-        self.operationsCollectionView?.isMultipleTouchEnabled = true
-        self.baseView?.isMultipleTouchEnabled = true
     }
     
     
@@ -49,12 +48,18 @@ class ViewController: UIViewController {
         let width : NSInteger = viewDimension / numberOfBoxes
         let height : NSInteger = width
         
-        self.baseView = TouchableView(frame: CGRect(x: 10, y: self.view.frame.height - CGFloat(viewDimension) - 10 , width: CGFloat(viewDimension), height: CGFloat(viewDimension)))
+        let frame =  CGRect(x: 10, y: self.view.frame.height - CGFloat(viewDimension) - 10 , width: CGFloat(viewDimension), height: CGFloat(viewDimension))
+        boxWindow = UIWindow()
+        boxWindow.frame = frame
+        boxWindow.makeKeyAndVisible()
+
+        
+        self.baseView = TouchableView(frame: boxWindow.bounds)
         baseView?.delegate = self
         baseView?.subView.touchDelegate = self
         self.baseView?.backgroundColor = self.view.backgroundColor ?? UIColor.clear
         
-        self.view.addSubview(baseView!)
+        boxWindow.addSubview(baseView!)
         
         var x : Int = 5, y : Int = 5
         let totalBoxes = numberOfBoxes * numberOfBoxes - 1
@@ -117,6 +122,18 @@ class ViewController: UIViewController {
         }
         return roundedLabelState;
     }
+    
+    func currentEquationResult() -> Int {
+        var total = 0
+        for (index, _) in selectedBoxes.enumerated() {
+            let label : RoundedLable = selectedBoxes[index]
+            let text  = label.text!
+            let number = Int(text) ?? 0
+            total = label.operation.result(firstInput: total, secondInput: number)
+        }
+        return total
+    }
+    
     
     func resetViews() {
         let previousScore = Int(self.scoreCard?.text ?? "0")

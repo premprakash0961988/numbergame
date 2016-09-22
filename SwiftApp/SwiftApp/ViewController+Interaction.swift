@@ -72,17 +72,12 @@ extension ViewController : UserTouchDelegate {
     
     
     func convertPoint(point : CGPoint) -> CGPoint {
-        return point
-        /*
         let x = baseView!.zoomScale * point.x
         let y = baseView!.zoomScale * point.y
         return CGPoint(x:x,y:y)
- */
     }
     
 }
-
-
 
 
 

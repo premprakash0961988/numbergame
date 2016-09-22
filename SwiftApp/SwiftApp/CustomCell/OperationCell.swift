@@ -14,7 +14,10 @@ class OperationCell : UICollectionViewCell {
     @IBOutlet weak var label : UILabel?
     
     
-    @IBAction func button() {
-        print("hey")
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
+    
+  
+
 }

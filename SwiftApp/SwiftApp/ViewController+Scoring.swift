@@ -36,21 +36,7 @@ extension ViewController {
     }
     
     func updateEquationBoard() {
-        var equation : Int = 0
-        let count = selectedBoxes.count
-
-        if count > 0 {
-            for (index, _) in selectedBoxes.enumerated() {
-                let label : RoundedLable = selectedBoxes[index]
-                equation += Int(label.text!) ?? 0
-            }
-            currentEquationBoard?.text = "Current : \(equation)"
-        }
-        else {
-            currentEquationBoard?.text = ""
-        }
-        
-        
+        currentEquationBoard?.text = (selectedBoxes.count != 0) ? "Current : \(currentEquationResult())" : ""
     }
     
 }
